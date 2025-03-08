@@ -1,0 +1,12 @@
+[Unit]
+Description=PiSugar Power Management Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/pisugar-server --model "PiSugar 3"
+Restart=always
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

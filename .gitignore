@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -57,9 +56,13 @@ cover/
 
 # Django stuff:
 *.log
+*.log*
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+
+# Temp file
+tmp/
 
 # Flask stuff:
 instance/
@@ -128,7 +131,6 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/
