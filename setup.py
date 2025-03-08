@@ -24,8 +24,8 @@ SYSTEM_PACKAGES = [
     "python3-pil",
     "python3-numpy",
     "python3-gpiozero",
-    "i2c-tools",  # Required for I2C communication
-    "debconf-utils"  # Needed for non-interactive PiSugar setup
+    "i2c-tools", 
+    "debconf-utils"  
 ]
 
 # Required Python packages
@@ -153,30 +153,11 @@ echo 'pisugar-poweroff pisugar-poweroff/model select PiSugar 3' | sudo debconf-s
     print("✅ PiSugar installed successfully (no confirmation prompt).")
 
 
-def setup_pisugar_service():
-    """Ensure PiSugar starts on boot with systemd."""
-    if os.path.isfile(SYSTEMD_TARGET_PATH):
-        print("✅ PiSugar systemd service is already installed.")
-        return
-
-    if os.path.isfile(SYSTEMD_SERVICE_FILE):
-        print("📂 Installing PiSugar systemd service...")
-        subprocess.run(["sudo", "cp", SYSTEMD_SERVICE_FILE, SYSTEMD_TARGET_PATH], check=True)
-        subprocess.run(["sudo", "chmod", "644", SYSTEMD_TARGET_PATH], check=True)
-        subprocess.run(["sudo", "systemctl", "daemon-reload"], check=True)
-        subprocess.run(["sudo", "systemctl", "enable", PISUGAR_SERVICE], check=True)
-        subprocess.run(["sudo", "systemctl", "start", PISUGAR_SERVICE], check=True)
-        print("✅ PiSugar systemd service installed and enabled.")
-    else:
-        print(f"❌ PiSugar systemd service file not found at {SYSTEMD_SERVICE_FILE}. Please add it to the repo.")
-
-
 def main():
     """Run setup checks before starting infoHUD."""
     print("🚀 Running infoHUD setup checks...")
     install_python_packages()
     install_pisugar()
-    setup_pisugar_service()
     print("✅ Setup complete!")
 
 
